@@ -53,6 +53,27 @@ class KBTest(unittest.TestCase):
         self.assertEqual(str(answer[3]), "?X : pyramid2, ?Y : green")
         self.assertEqual(str(answer[4]), "?X : pyramid3, ?Y : red")
         self.assertEqual(str(answer[5]), "?X : pyramid4, ?Y : red")
+        self.assertEqual(str(answer[6]), "?X : sphere2, ?Y : yellow")
+
+#own tests begin here
+    def test6(self):
+        ask1 = read.parse_input("fact: (size sphere2 ?Y)")
+        print(' Asking if', ask1)
+        answer = self.KB.kb_ask(ask1)
+        self.assertEqual(str(answer[0]), "?Y : small")
+
+    def test7(self):
+        ask1 = read.parse_input("fact: (color sphere2 red)")
+        print(' Asking if', ask1)
+        answer = self.KB.kb_ask(ask1)
+        self.assertFalse(answer)
+
+    def test8(self):
+        ask1 = read.parse_input("fact: (inst ?X sphere)")
+        print(' Asking if', ask1)
+        answer = self.KB.kb_ask(ask1)
+        self.assertEqual(str(answer[0]), "?X : sphere1")
+        self.assertEqual(str(answer[1]), "?X : sphere2")
         
 
 if __name__ == '__main__':

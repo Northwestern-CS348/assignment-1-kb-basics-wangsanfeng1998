@@ -34,3 +34,9 @@ fact: (inst cube3 cube)
 fact: (inst cube4 cube)
 
 fact: (inst sphere1 sphere)
+
+
+
+fact: (inst sphere2 sphere)
+fact: (color sphere2 yellow)
+fact: (size sphere2 small)
