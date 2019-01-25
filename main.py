@@ -4,7 +4,7 @@ from logical_classes import *
 from student_code import KnowledgeBase
 
 class KBTest(unittest.TestCase):
-
+    """
     def setUp(self):
         # Assert starter facts
         file = 'statements_kb.txt'
@@ -74,7 +74,40 @@ class KBTest(unittest.TestCase):
         answer = self.KB.kb_ask(ask1)
         self.assertEqual(str(answer[0]), "?X : sphere1")
         self.assertEqual(str(answer[1]), "?X : sphere2")
-        
+    """
+    def setUp(self):
+        # Assert starter facts
+        file = 'statements_kb2.txt'
+        data = read.read_tokenize(file)
+        self.KB = KnowledgeBase([], [])
+        for item in data:
+            if isinstance(item, Fact):
+                self.KB.kb_assert(item)
+    def test1(self):
+        ask1 = read.parse_input("fact: (attacked Ai Nosliw))")
+        print(' Asking if', ask1)
+        answer = self.KB.kb_ask(ask1)
+        self.assertEqual(answer[0].bindings, [])
+        #self.assertEqual(answer.list_of_bindings[0][1][0], ask1)
+
+    def test2(self):
+        ask1 = read.parse_input("fact: (inst ?X ?Y)")
+        print(' Asking if', ask1)
+        answer = self.KB.kb_ask(ask1)
+        self.assertEqual(str(answer[0]), "?X : Sarorah, ?Y : Sorceress")
+        self.assertEqual(str(answer[1]), "?X : Nosliw, ?Y : Dragon")
+
+    def test3(self):
+        ask1 = read.parse_input("fact: (inst Sarorah Dragon)")
+        print(' Asking if', ask1)
+        answer = self.KB.kb_ask(ask1)
+        self.assertFalse(answer)
+
+    def test4(self):
+        ask1 = read.parse_input("fact: (needs Sarorah ?X)")
+        print(' Asking if', ask1)
+        answer = self.KB.kb_ask(ask1)
+        self.assertEqual(str(answer[0]), "?X : Loot")
 
 if __name__ == '__main__':
     unittest.main()
